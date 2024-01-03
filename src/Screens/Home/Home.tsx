@@ -1,10 +1,11 @@
 import { i18n, LocalizationKey } from "@/Localization";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HStack, Spinner, Heading } from "native-base";
 import { User } from "@/Services";
-
+import { useNavigation } from "@react-navigation/native";
+import { RootScreens } from "..";
 export interface IHomeProps {
   data: User | undefined;
   isLoading: boolean;
@@ -12,9 +13,16 @@ export interface IHomeProps {
 
 export const Home = (props: IHomeProps) => {
   const { data, isLoading } = props;
+  const navigation = useNavigation();
+
+  const handleNavigateToGetId = () => {
+    navigation.navigate(RootScreens.GETID);
+  };
+  
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      
       {isLoading ? (
         <HStack space={2} justifyContent="center">
           <Spinner accessibilityLabel="Loading posts" />
@@ -28,6 +36,7 @@ export const Home = (props: IHomeProps) => {
           <Heading color="primary.500" fontSize="md">
             {data?.username}
           </Heading>
+          <Button title="Nhập mã ID >" onPress={handleNavigateToGetId} />
         </>
       )}
     </View>

@@ -1,7 +1,8 @@
 import React from "react";
+import { Platform, StatusBar } from 'react-native';
 import { i18n, LocalizationKey } from "@/Localization";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { RootScreens } from "..";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -116,7 +117,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignSelf: 'center', // Center the button in the container
   },
-
+  logo:{
+    
+  },
   buttonText: {
     fontSize: 30,
     color: 'black', // Adjust text color to match your design.

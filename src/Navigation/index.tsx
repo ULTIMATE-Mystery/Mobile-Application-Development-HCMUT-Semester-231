@@ -4,11 +4,21 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainNavigator } from "./Main";
 import { WelcomeContainer } from "@/Screens/Welcome";
+import { GetIdContainer } from "@/Screens/GetId";
 import { RootScreens } from "@/Screens";
-
+import { HistoryContainer
+ } from "@/Screens/History";
+import { SettingContainer } from "@/Screens/Setting";
 export type RootStackParamList = {
   [RootScreens.MAIN]: undefined;
   [RootScreens.WELCOME]: undefined;
+  [RootScreens.GETID]: undefined;
+  [RootScreens.SCANHISTORY]: undefined;
+  [RootScreens.SETTING]: undefined;
+  [RootScreens.LOCATIONINFO]: undefined;
+  [RootScreens.ACCOUNT]: undefined;
+  [RootScreens.REGISTER]: undefined;
+
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +36,21 @@ const ApplicationNavigator = () => {
         <RootStack.Screen
           name={RootScreens.MAIN}
           component={MainNavigator}
+          options={{}}
+        />
+        <RootStack.Screen
+          name={RootScreens.GETID}
+          component={GetIdContainer}
+          options={{}}
+        />
+        <RootStack.Screen
+          name={RootScreens.SCANHISTORY}
+          component={HistoryContainer}
+          options={{}}
+        />
+        <RootStack.Screen
+          name={RootScreens.SETTING}
+          component={SettingContainer}
           options={{}}
         />
       </RootStack.Navigator>
