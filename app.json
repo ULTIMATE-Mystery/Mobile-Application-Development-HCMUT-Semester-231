@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Expo Redux Template",
-    "slug": "expo-redux-template",
+    "slug": "bkwai",
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -35,11 +35,12 @@
     "plugins": [],
     "extra": {
       "eas": {
-        "projectId": "85975a47-fdbc-4fdf-8329-935e76f9c4d9"
+        "projectId": "b6b433da-5cfc-447a-aef0-428fa1152668"
       }
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    }
+    },
+    "owner": "quanghayhay1801"
   }
 }
