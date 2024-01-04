@@ -3,6 +3,7 @@ import { View, Text, StatusBar, FlatList, StyleSheet,ListRenderItemInfo,Touchabl
 import { RootScreens } from "..";
 import BottomBar from "@/Components/BottomBar";
 import TopBar from "@/Components/TopBar";
+import { useNavigation } from "@react-navigation/native";
 
 type ScanHistoryItem = {
   id: number;
@@ -15,16 +16,18 @@ export const History = (props: {
   onNavigate: (string: RootScreens) => void;
 }) => {
   const [scanHistory, setScanHistory] = useState<ScanHistoryItem[]>([
-    { id: 1, date: "2022-01-01", result: "Positive" },
-    { id: 2, date: "2022-02-15", result: "Negative" },
-    { id: 3, date: "2022-02-15", result: "Negative" },
-    { id: 4, date: "2022-02-15", result: "Negative" },
+    { id: 1, date: "2024-01-04", result: "Tòa A1" },
+    { id: 2, date: "2024-01-04", result: "Tòa A2" },
     // ... thêm dữ liệu lịch sử quét khác
   ]);
+  const navigation = useNavigation();
 
+  const handlePressInfo = () => {
+    navigation.navigate(RootScreens.LOCATIONINFO);
+  };
   const renderItem = ({ item }: ListRenderItemInfo<ScanHistoryItem>) => (
     <View style={styles.historyItem}>
-      <TouchableOpacity style={styles.bottombar}>
+      <TouchableOpacity style={styles.bottombar} onPress={handlePressInfo}>
 
       <Text style={styles.historyResult}>{item.result}</Text>
       <Text style={styles.historyDate}>{item.date}</Text>
