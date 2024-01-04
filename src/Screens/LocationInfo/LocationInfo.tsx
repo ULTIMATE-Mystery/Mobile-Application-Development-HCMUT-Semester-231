@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, StatusBar, TextInput } from 'react-native';
+import { Platform, StatusBar, FlatList } from 'react-native';
 import { i18n, LocalizationKey } from "@/Localization";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { RootScreens } from "..";
@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import BottomBar from "@/Components/BottomBar";
 import TopBar from "@/Components/TopBar";
 
-export const Setting = (props: {
+export const LocationInfo = (props: {
   onNavigate: (string: RootScreens) => void;
 }) => {
   return (
@@ -22,11 +22,12 @@ export const Setting = (props: {
         </View>
         <StatusBar barStyle="light-content" />
 
+        {/* Input Section */}
         
         {/* Bottom Bar */}
         <View style={styles.bottombar}>
           <BottomBar
-            activeScreen={RootScreens.SETTING}
+            activeScreen={RootScreens.SCANHISTORY}
             onNavigate={props.onNavigate}
           />
         </View>

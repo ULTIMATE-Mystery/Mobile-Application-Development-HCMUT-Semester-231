@@ -9,6 +9,7 @@ import { RootScreens } from "@/Screens";
 import { HistoryContainer
  } from "@/Screens/History";
 import { SettingContainer } from "@/Screens/Setting";
+import { LocationInfoContainer } from "@/Screens/LocationInfo";
 export type RootStackParamList = {
   [RootScreens.MAIN]: undefined;
   [RootScreens.WELCOME]: undefined;
@@ -51,6 +52,11 @@ const ApplicationNavigator = () => {
         <RootStack.Screen
           name={RootScreens.SETTING}
           component={SettingContainer}
+          options={{}}
+        />
+        <RootStack.Screen
+          name={RootScreens.LOCATIONINFO}
+          component={LocationInfoContainer}
           options={{}}
         />
       </RootStack.Navigator>

@@ -27,7 +27,7 @@ export const History = (props: {
         {/* Bottom Bar */}
         <View style={styles.bottombar}>
           <BottomBar
-            activeScreen={RootScreens.GETID}
+            activeScreen={RootScreens.SCANHISTORY}
             onNavigate={props.onNavigate}
           />
         </View>

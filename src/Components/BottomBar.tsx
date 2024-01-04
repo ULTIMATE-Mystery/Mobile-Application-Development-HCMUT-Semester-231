@@ -14,7 +14,7 @@ const BottomBar = (props: {
     }
   };
 
-  const getBackgroundImage = () => {
+  let getBackgroundImage = () => {
     switch (activeScreen) {
       case RootScreens.SCANHISTORY:
         return require('../../assets/image/bottom1.png');
@@ -29,6 +29,7 @@ const BottomBar = (props: {
 
   return (
     <ImageBackground
+      key={activeScreen}
       source={getBackgroundImage()}
       style={styles.bottomBar}
       resizeMode="cover"
