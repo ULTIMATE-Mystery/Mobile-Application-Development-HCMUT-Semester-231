@@ -1,37 +1,61 @@
-import React from "react";
-import { Platform, StatusBar, FlatList } from 'react-native';
-import { i18n, LocalizationKey } from "@/Localization";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StatusBar, FlatList, StyleSheet,ListRenderItemInfo,TouchableOpacity } from "react-native";
 import { RootScreens } from "..";
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 import BottomBar from "@/Components/BottomBar";
 import TopBar from "@/Components/TopBar";
+
+type ScanHistoryItem = {
+  id: number;
+  date: string;
+  result: string;
+};
+
 
 export const History = (props: {
   onNavigate: (string: RootScreens) => void;
 }) => {
+  const [scanHistory, setScanHistory] = useState<ScanHistoryItem[]>([
+    { id: 1, date: "2022-01-01", result: "Positive" },
+    { id: 2, date: "2022-02-15", result: "Negative" },
+    { id: 3, date: "2022-02-15", result: "Negative" },
+    { id: 4, date: "2022-02-15", result: "Negative" },
+    // ... thêm dữ liệu lịch sử quét khác
+  ]);
+
+  const renderItem = ({ item }: ListRenderItemInfo<ScanHistoryItem>) => (
+    <View style={styles.historyItem}>
+      <TouchableOpacity style={styles.bottombar}>
+
+      <Text style={styles.historyResult}>{item.result}</Text>
+      <Text style={styles.historyDate}>{item.date}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['#1488D8', '#1488D8', '#FFFFFF']}
-        style={styles.container}
-      >
-        <View style={styles.topbar}>
-          <TopBar/>
-        </View>
-        <StatusBar barStyle="light-content" />
+      <View style={styles.topbar}>
+        <TopBar />
+      </View>
+      <StatusBar barStyle="light-content" />
 
-        {/* Input Section */}
-        
-        {/* Bottom Bar */}
-        <View style={styles.bottombar}>
-          <BottomBar
-            activeScreen={RootScreens.SCANHISTORY}
-            onNavigate={props.onNavigate}
-          />
-        </View>
-      </LinearGradient>
+      {/* Lịch sử quét */}
+      <View style={styles.historyContainer}>
+        <Text style={styles.title}>Lịch sử quét</Text>
+        <FlatList
+          data={scanHistory}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+        />
+      </View>
+
+      {/* Bottom Bar */}
+      <View style={styles.bottombar}>
+        <BottomBar
+          activeScreen={RootScreens.SCANHISTORY}
+          onNavigate={props.onNavigate}
+        />
+      </View>
     </View>
   );
 };
@@ -39,64 +63,45 @@ export const History = (props: {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1488D8',
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
   },
-  inputContainer: {
-    marginTop: '20%',
-    paddingHorizontal: 25,
-    width: '100%',
+  topbar: {
+    flex: 1,
+    justifyContent: 'flex-start',
   },
-  inputLabel: {
-    fontSize: 20,
-    color: '#000',
-    marginBottom: 10,
-    fontFamily: 'Montserrat-Bold',
-  },
-  whiteBg:{
-    backgroundColor: '#fff',
-    borderRadius: 5
-  },
-  inputWrapper: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    alignSelf: 'stretch',
-    borderColor: '#fff',
-    borderBottomColor: '#000',
-  },
-  input: {
-    fontSize: 16,
-    color: 'black',
-    paddingVertical: 12,
-    alignSelf: 'stretch',
-  },
-  submitButton: {
-    backgroundColor: '#1488D8',
-    borderRadius: 8,
-    paddingVertical: 12,
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    width: '40%', // Adjust as needed
-  },
-  submitButtonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontFamily: 'Montserrat-Bold',
-  },
-  illustration1: {
-    width: '100%',
-    height: '50%',
-    resizeMode: 'contain',
-    alignSelf: 'center',
+  historyContainer: {
+    flex: 8, 
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
   bottombar: {
     flex: 1,
     justifyContent: 'flex-end',
   },
-  topbar:{
-    flex: 1,
-    justifyContent: 'flex-start'
-  }
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    justifyContent: 'center',
+  },
+  historyItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+    paddingVertical: 10,
+  },
+  historyDate: {
+    fontSize: 16,
+  },
+  historyResult: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1488D8', // Màu sắc tùy thuộc vào kết quả quét
+  },
 });
+
+// export default History;

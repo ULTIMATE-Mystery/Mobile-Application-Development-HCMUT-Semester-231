@@ -16,5 +16,11 @@ export const LocationInfoContainer = ({
     navigation.navigate(screen);
   };
 
-  return <LocationInfo onNavigate={onNavigate} />;
+  const dummyRoute = {
+    params: {
+      id: 2,
+    },
+  };
+
+  return <LocationInfo onNavigate={onNavigate} route={dummyRoute} />;
 };

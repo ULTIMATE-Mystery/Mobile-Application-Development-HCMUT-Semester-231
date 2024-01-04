@@ -1,37 +1,85 @@
-import React from "react";
-import { Platform, StatusBar, FlatList } from 'react-native';
-import { i18n, LocalizationKey } from "@/Localization";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, StatusBar, Image, StyleSheet } from "react-native";
 import { RootScreens } from "..";
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 import BottomBar from "@/Components/BottomBar";
 import TopBar from "@/Components/TopBar";
 
-export const LocationInfo = (props: {
-  onNavigate: (string: RootScreens) => void;
-}) => {
+type LocationDetail = {
+  id: number;
+  name: string;
+  image: string;
+  address: string;
+  mapImage: string;
+};
+
+// Trực tiếp đặt mảng locationInfo ở đây
+const locationInfo: LocationDetail[] = [
+  {
+    id: 1,
+    name: "Tòa A1",
+    image: "",
+    address: "Đi thẳng vào từ cổng chính...",
+    mapImage: "../../../assets/images/title.png",
+  },
+  {
+    id: 2,
+    name: "Tòa A2",
+    image: "",
+    address: "Từ cổng chính đi thẳng, rẽ phải...",
+    mapImage: "../../../assets/images/title.png",
+  },
+  // Thêm các thông tin địa điểm khác nếu cần
+];
+
+type LocationInfoProps = {
+  onNavigate: (screen: RootScreens) => void;
+  route: { params: { id: number } };
+};
+
+export const LocationInfo = (props: LocationInfoProps) => {
+  const [locationDetail, setLocationDetail] = useState<LocationDetail | null>(null);
+
+  useEffect(() => {
+    const { id } = props.route.params;
+    const foundLocation = locationInfo.find((location) => location.id === id);
+
+    if (foundLocation) {
+      setLocationDetail(foundLocation);
+    }
+  }, [props.route.params]);
+
+  if (!locationDetail) {
+    // Handle loading state or error state
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['#1488D8', '#1488D8', '#FFFFFF']}
-        style={styles.container}
-      >
-        <View style={styles.topbar}>
-          <TopBar/>
-        </View>
-        <StatusBar barStyle="light-content" />
+      <View style={styles.topbar}>
+        <TopBar />
+      </View>
+      <StatusBar barStyle="light-content" />
 
-        {/* Input Section */}
-        
-        {/* Bottom Bar */}
-        <View style={styles.bottombar}>
-          <BottomBar
-            activeScreen={RootScreens.SCANHISTORY}
-            onNavigate={props.onNavigate}
-          />
-        </View>
-      </LinearGradient>
+      {/* Location details */}
+      <View style={styles.locationDetails}>
+        <Text style={styles.locationName}>{locationDetail.name}</Text>
+        <Text style={styles.locationAddress}>{locationDetail.address}</Text>
+        <Image source={{ uri: locationDetail.mapImage }} style={styles.locationImage} />
+        <Image source={{ uri: locationDetail.image }} style={styles.image} />
+        {/* Add other details as needed */}
+      </View>
+
+      {/* Bottom Bar */}
+      <View style={styles.bottombar}>
+        <BottomBar
+          activeScreen={RootScreens.LOCATIONINFO}
+          onNavigate={props.onNavigate}
+        />
+      </View>
     </View>
   );
 };
@@ -39,64 +87,42 @@ export const LocationInfo = (props: {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1488D8',
-  },
-  inputContainer: {
-    marginTop: '20%',
-    paddingHorizontal: 25,
-    width: '100%',
-  },
-  inputLabel: {
-    fontSize: 20,
-    color: '#000',
-    marginBottom: 10,
-    fontFamily: 'Montserrat-Bold',
-  },
-  whiteBg:{
     backgroundColor: '#fff',
-    borderRadius: 5
   },
-  inputWrapper: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    alignSelf: 'stretch',
-    borderColor: '#fff',
-    borderBottomColor: '#000',
+  image:{
+    height: 100,
+    width: 100,
   },
-  input: {
-    fontSize: 16,
-    color: 'black',
-    paddingVertical: 12,
-    alignSelf: 'stretch',
+  topbar: {
+    flex: 1,
+    justifyContent: 'flex-start',
   },
-  submitButton: {
-    backgroundColor: '#1488D8',
-    borderRadius: 8,
-    paddingVertical: 12,
+  locationDetails: {
+    flex: 8,
+    paddingHorizontal: 16,
+    paddingTop: 16,
     alignItems: 'center',
-    alignSelf: 'flex-end',
-    width: '40%', // Adjust as needed
-  },
-  submitButtonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontFamily: 'Montserrat-Bold',
-  },
-  illustration1: {
-    width: '100%',
-    height: '50%',
-    resizeMode: 'contain',
-    alignSelf: 'center',
   },
   bottombar: {
     flex: 1,
     justifyContent: 'flex-end',
   },
-  topbar:{
-    flex: 1,
-    justifyContent: 'flex-start'
-  }
+  locationImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    marginBottom: 16,
+  },
+  locationName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  locationAddress: {
+    fontSize: 16,
+    color: '#555', // Màu chữ tối ưu hơn
+    marginBottom: 16,
+  },
 });
+
+export default LocationInfo;

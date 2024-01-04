@@ -15,18 +15,20 @@ const styles = StyleSheet.create({
   topBar: {
     flexDirection: 'row',
     justifyContent: "space-between",
-    padding: 10,
-    marginHorizontal: 20,
+    paddingHorizontal: 32,
+    alignItems: "center",
+    marginBottom: 20,
+    height: 84,
     backgroundColor: '#1488D8', // Background color for the top bar
   },
   logo:{
-    width: 130,
+    width: 155,
     height: 150,
     resizeMode: 'contain',
   
 },
   icon: {
-    width: 30,
+    width: 35,
     height:150,
     resizeMode: 'contain',
   },
