@@ -1,21 +1,20 @@
 import React from "react";
-import { Platform, StatusBar, TextInput } from 'react-native';
-import { i18n, LocalizationKey } from "@/Localization";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { RootScreens } from "..";
+import { Platform, StatusBar, TextInput, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomBar from "@/Components/BottomBar";
 import TopBar from "@/Components/TopBar";
 import { useNavigation } from "@react-navigation/native";
+import { RootScreens } from "..";
 
 export const GetId = (props: {
-  onNavigate: (string: RootScreens) => void;
+  onNavigate: (screen: RootScreens) => void;
 }) => {
   const navigation = useNavigation();
 
   const handleExactID = () => {
     navigation.navigate(RootScreens.LOCATIONINFO);
   };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -23,7 +22,7 @@ export const GetId = (props: {
         style={styles.container}
       >
         <View style={styles.topbar}>
-          <TopBar/>
+          <TopBar />
         </View>
         <StatusBar barStyle="light-content" />
 
@@ -36,8 +35,8 @@ export const GetId = (props: {
                 style={styles.input}
                 placeholder="Nhập ID vào đây"
                 placeholderTextColor="#ccc"
-                />
-                <hr style={styles.hr}></hr>
+              />
+              <View style={styles.hr}></View>
             </View>
           </View>
           <TouchableOpacity style={styles.submitButton} onPress={handleExactID}>
@@ -74,10 +73,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000',
     marginVertical: 5,
-    marginLeft:10,
+    marginLeft: 10,
     fontFamily: 'Montserrat-Bold',
   },
-  whiteBg:{
+  whiteBg: {
     backgroundColor: '#fff',
     borderRadius: 5
   },
@@ -99,6 +98,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderWidth: 0,
   },
+  hr: {
+    height: 1,
+    backgroundColor: '#000',
+    marginTop: 10,
+    marginBottom: 10,
+  },
   submitButton: {
     backgroundColor: '#1488D8',
     borderRadius: 8,
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     alignSelf: 'flex-end',
-    width: '40%', // Adjust as needed
+    width: '40%',
   },
   submitButtonText: {
     fontSize: 18,
@@ -123,11 +128,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  topbar:{
+  topbar: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
-  hr:{
-    width: '100%',
-  }
 });
